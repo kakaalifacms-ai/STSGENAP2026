@@ -87,15 +87,18 @@ function tampilBarang() {
 }
 
 
-/* TABUNGAN */
+/* PROGRAM BUKU TABUNGAN */
 
 function tambahSetoran() {
-  
-  let uang = document.getElementById("setor").value;
-  
-  tabungan.push(Number(uang));
-  
-  tampilTabungan();
+
+  let jumlah = parseInt(document.getElementById("setor").value);
+
+  if (!isNaN(jumlah) && jumlah >= 1000) {
+    tabungan.push(jumlah);
+    document.getElementById("setor").value = "";
+    tampilTabungan();
+  }
+
 }
 
 function hapusSetoran() {
@@ -109,53 +112,49 @@ function resetTabungan() {
 }
 
 function tampilTabungan() {
-  
+
   let riwayat = document.getElementById("riwayat");
   if (!riwayat) return;
-  
+
   let text = "";
-  
+
   for (let i = 0; i < tabungan.length; i++) {
-    text += "Setoran ke-" + (i + 1) + " : Rp " + tabungan[i] + "<br>";
+    text += "Setoran ke-" + (i+1) + ": Rp " + tabungan[i].toLocaleString("id-ID") + "<br><br>";
   }
-  
+
   riwayat.innerHTML = text;
+
 }
 
 function cetakSaldo(){
 
-let hasil=document.getElementById("hasil");
-if(!hasil) return;
+  let hasil = document.getElementById("hasil");
 
-let total=0;
-let text="=== BUKU TABUNGAN ===<br><br>";
+  let total = 0;
 
-for(let i=0;i<tabungan.length;i++){
+  for(let i=0;i<tabungan.length;i++){
+    total += tabungan[i];
+  }
 
-let uang = Number(tabungan[i]);
+  let bonus = 0;
 
-text+="Setoran ke-"+(i+1)+": Rp "+uang+"<br><br>";
+  if(total >= 1000000){
+    bonus = total * 0.07;
+  }
 
-total += uang;
+  let saldo = total + bonus;
+
+  let text = "=== BUKU TABUNGAN ===<br><br>";
+
+  for(let i=0;i<tabungan.length;i++){
+    text += "Setoran ke-"+(i+1)+": Rp "+tabungan[i].toLocaleString("id-ID")+"<br><br>";
+  }
+
+  text += "-------------------------------------------<br><br>";
+  text += "Total Setoran Pokok: Rp "+total.toLocaleString("id-ID")+"<br><br>";
+  text += "Bonus: Rp "+bonus.toLocaleString("id-ID")+" (Selamat! Anda mendapat bonus 7%)<br><br>";
+  text += "<b>SALDO BERSIH: Rp "+saldo.toLocaleString("id-ID")+"</b>";
+
+  hasil.innerHTML = text;
 
 }
-
-text+="-------------------------------------------<br><br>";
-text+="Total Setoran Pokok: Rp "+total+"<br><br>";
-
-let bonus=0;
-
-if(total>=1000000){
-bonus = total * 0.07;
-text+="Bonus: Rp "+bonus+" (Selamat! Anda mendapat bonus 7%)<br><br>";
-}else{
-text+="Bonus: Rp 0<br><br>";
-}
-
-let saldo = total + bonus;
-
-text+="SALDO BERSIH: Rp "+saldo;
-
-hasil.innerHTML=text;
-}
-

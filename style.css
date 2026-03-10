@@ -62,3 +62,28 @@ margin-top:10px;
 p{
 margin-top:10px;
 }
+.kembali {
+  display: block;
+  margin-top: 10px;
+  padding: 10px;
+  background: #e74c3c;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.kembali:hover {
+  background: #c0392b;
+}
+.tambah {
+  background: #43EB2B;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tambah:hover {
+  background: #27ae60;
+}
